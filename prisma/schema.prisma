@@ -1,0 +1,101 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProjectCategory {
+  WEB
+  MOBILE
+  DESIGN
+  AI
+}
+
+enum SkillCategory {
+  FRONTEND
+  BACKEND
+  DESIGN
+  TOOLS
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+
+  @@map("admins")
+}
+
+model Project {
+  id              String          @id @default(cuid())
+  title           String
+  slug            String          @unique
+  description     String
+  longDescription String?
+  coverImage      String?
+  liveUrl         String?
+  githubUrl       String?
+  techStack       String[]
+  category        ProjectCategory @default(WEB)
+  featured        Boolean         @default(false)
+  order           Int             @default(0)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@map("projects")
+}
+
+model Experience {
+  id          String    @id @default(cuid())
+  company     String
+  role        String
+  description String
+  startDate   DateTime
+  endDate     DateTime?
+  techUsed    String[]
+  companyLogo String?
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("experiences")
+}
+
+model Skill {
+  id          String        @id @default(cuid())
+  name        String
+  category    SkillCategory
+  proficiency Int           @default(50)
+  icon        String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("skills")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  read      Boolean  @default(false)
+  starred   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
+
+model SiteConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("site_config")
+}
