@@ -5,7 +5,7 @@ dist/
 *.env.production
 
 # Prisma
-prisma/migrations/
+#prisma/migrations/
 
 # Logs
 *.log
