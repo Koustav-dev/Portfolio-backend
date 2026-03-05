@@ -39,7 +39,7 @@
     "@types/morgan": "^1.9.10",
     "@types/multer": "^1.4.13",
     "@types/node": "^20.19.35",
-    "@types/nodemailer": "^6.4.23",
+    "@types/nodemailer": "^6.4.23"
   },
   "devDependencies": {
 
